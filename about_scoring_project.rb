@@ -30,37 +30,41 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score_ones(total)
+  ones_score = 0
 
   if total < 3
-    total * 100
+    ones_score = total * 100
   end
 
-  if total > 3
-    if total - 3 == 0
-      1000
+  if total >= 3
+    if total % 3 == 0
+      ones_score = 1000
     else
-      remaining_ones = total - 3
+      remaining_ones = total % 3
       ones_score = remaining_ones * 100 + 1000
-      ones_score
     end
   end
+
+  ones_score
 end
 
 def score_fives(total)
-  
+  fives_score = 0
+
   if total < 3
-    total * 50
+    fives_score = total * 50
   end
 
-  if total > 3
+  if total >= 3
     if total - 3 == 0
-      500
+      fives_score = 500
     else
       remaining_fives = total - 3
       fives_score = remaining_fives * 50 + 500
-      fives_score
     end
   end
+  
+  fives_score
 end
 
 def score(dice)
@@ -80,16 +84,15 @@ def score(dice)
     end
 
     if num == 5
-      puts score_fives(total)
       points += score_fives(total)
     end
 
     if num != 1 && num != 5
-      if num[total] % 3 == 0
-        points += num * total
+      if total % 3 == 0
+        points += num * 100
+      else
+        points += 0  
       end
-    else
-      points += 0  
     end
   end
 
